@@ -13,6 +13,66 @@ Initialise un nouveau dépôt Git dans le répertoire courant.
 git init
 ```
 
+Après avoir créé un dépôt distant, ces commandes Git spécifiques : `git remote`, `git remote add`, et `git push -u` permettent de lier local et distant.
+
+#### 1a. **`git remote`**
+
+La commande `git remote` est utilisée pour gérer les dépôts distants associés à votre dépôt local. Un dépôt distant est un autre dépôt Git situé sur un serveur (comme GitHub, GitLab, ou Bitbucket) qui est lié à votre dépôt local.
+
+- **Afficher les dépôts distants** :
+  ```bash
+  git remote
+  ```
+  Cette commande affiche la liste des noms des dépôts distants configurés pour le dépôt local.
+
+- **Afficher les informations détaillées sur les dépôts distants** :
+  ```bash
+  git remote -v
+  ```
+  L'option `-v` (verbose) montre les URLs associées aux dépôts distants pour les opérations de `fetch` et `push`.
+
+#### 1b. **`git remote add`**
+
+La commande `git remote add` est utilisée pour ajouter un nouveau dépôt distant à votre dépôt local. Cela vous permet de spécifier un nom pour le dépôt distant et l'URL à laquelle il est accessible.
+
+- **Syntaxe** :
+  ```bash
+  git remote add <nom-distant> <url>
+  ```
+
+- **Paramètres** :
+  - `<nom-distant>` : Le nom que vous souhaitez attribuer au dépôt distant. Par convention, le nom par défaut est `origin`.
+  - `<url>` : L'URL du dépôt distant. Cela peut être une URL HTTP(s), SSH, ou un chemin de dépôt Git.
+
+- **Exemple** :
+  ```bash
+  git remote add origin https://github.com/username/repository.git
+  ```
+  Cela ajoute un dépôt distant nommé `origin` avec l'URL spécifiée.
+
+#### 1c. **`git push -u`**
+
+La commande `git push -u` est utilisée pour envoyer les commits de votre branche locale vers le dépôt distant et définir la branche distante par défaut pour votre branche locale.
+
+- **Syntaxe** :
+  ```bash
+  git push -u <nom-distant> <branche>
+  ```
+
+- **Paramètres** :
+  - `<nom-distant>` : Le nom du dépôt distant, par exemple `origin`.
+  - `<branche>` : Le nom de la branche que vous souhaitez pousser vers le dépôt distant.
+
+- **Options** :
+  - `-u` ou `--set-upstream` : Définit la branche distante comme la branche par défaut pour les futures opérations `git push` et `git pull` sur la branche locale spécifiée. Cela permet à Git de savoir à quel dépôt distant et branche pousser ou tirer les modifications sans avoir à spécifier ces informations à chaque fois.
+
+- **Exemple** :
+  ```bash
+  git push -u origin main
+  ```
+  Cela pousse la branche locale `main` vers le dépôt distant `origin` et définit `origin/main` comme la branche distante par défaut pour `main`. À partir de ce moment, vous pouvez simplement utiliser `git push` ou `git pull` sans avoir à spécifier le dépôt distant et la branche.
+
+
 #### 2. **`git clone`**
 Clone un dépôt existant depuis une URL dans un nouveau répertoire local.
 ```bash
