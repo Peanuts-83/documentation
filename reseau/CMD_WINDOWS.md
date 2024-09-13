@@ -28,9 +28,9 @@ Vous pouvez configurer les interfaces réseau, comme l'attribution d'adresses IP
 
 - **Configurer une adresse IP statique** :
   ```bash
-  netsh interface ip set address name="Ethernet" static 192.168.0.67 255.255.255.0 192.168.0.1
+  netsh interface ip set address name="Ethernet" static 192.168.0.xx 255.255.255.0 192.168.0.1
   ```
-  Cela configure l'interface **Ethernet** avec l'adresse IP `192.168.0.67`, un masque de sous-réseau de `255.255.255.0`, et une passerelle par défaut de `192.168.0.1`.
+  Cela configure l'interface **Ethernet** avec l'adresse IP `192.168.0.xx`, un masque de sous-réseau de `255.255.255.0`, et une passerelle par défaut de `192.168.0.1`.
 
 #### 2. **Pare-feu Windows (Firewall)**
 La gestion du pare-feu est l'une des fonctionnalités principales de `netsh`. Vous pouvez ajouter ou supprimer des règles, activer/désactiver le pare-feu, etc.
@@ -57,9 +57,9 @@ La fonction de **port forwarding** ou **portproxy** permet de rediriger le trafi
 
 - **Ajouter une redirection de port** :
   ```bash
-  netsh interface portproxy add v4tov4 listenport=81 listenaddress=192.168.0.67 connectport=81 connectaddress=127.0.0.1
+  netsh interface portproxy add v4tov4 listenport=81 listenaddress=192.168.0.xx connectport=81 connectaddress=127.0.0.1
   ```
-  Cela redirige le trafic entrant sur `192.168.0.67:81` vers `127.0.0.1:81`.
+  Cela redirige le trafic entrant sur `192.168.0.xx:81` vers `127.0.0.1:81`.
 
 - **Voir toutes les redirections de port** :
   ```bash
@@ -68,7 +68,7 @@ La fonction de **port forwarding** ou **portproxy** permet de rediriger le trafi
 
 - **Supprimer une redirection de port** :
   ```bash
-  netsh interface portproxy delete v4tov4 listenport=81 listenaddress=192.168.0.67
+  netsh interface portproxy delete v4tov4 listenport=81 listenaddress=192.168.0.xx
   ```
 
 #### 4. **Wi-Fi (WLAN)**
@@ -172,26 +172,26 @@ Dans WSL 2, les conteneurs Docker et les applications exécutées n'ont pas un a
 Exécutez cette commande dans PowerShell en mode administrateur pour créer une règle de redirection entre le réseau WSL et l'interface réseau externe :
 
 ```powershell
-netsh interface portproxy add v4tov4 listenport=81 listenaddress=192.168.0.67 connectport=81 connectaddress=127.0.0.1
+netsh interface portproxy add v4tov4 listenport=81 listenaddress=192.168.0.xx connectport=81 connectaddress=127.0.0.1
 ```
 
-Cela signifie que tout le trafic venant sur `192.168.0.67:81` sera redirigé vers `127.0.0.1:81`, là où votre application est accessible en local sur Windows.
+Cela signifie que tout le trafic venant sur `192.168.0.xx:81` sera redirigé vers `127.0.0.1:81`, là où votre application est accessible en local sur Windows.
 
 ### 4. **Vérifier l'ouverture du port sur votre routeur**
-Si vous voulez accéder à l'application depuis un réseau extérieur (par exemple, via Internet), vous devez configurer une **redirection de port (port forwarding)** sur votre routeur. Vous pouvez rediriger le port 81 de votre IP externe vers le port 81 de votre PC (192.168.0.67).
+Si vous voulez accéder à l'application depuis un réseau extérieur (par exemple, via Internet), vous devez configurer une **redirection de port (port forwarding)** sur votre routeur. Vous pouvez rediriger le port 81 de votre IP externe vers le port 81 de votre PC (192.168.0.xx).
 
 Voici les étapes générales (varient selon le modèle de routeur) :
 1. Accédez à l'interface d'administration de votre routeur.
 2. Recherchez une section liée à la redirection de port ou au NAT.
-3. Configurez une règle pour rediriger le port 81 de l'IP publique vers `192.168.0.67:81`.
+3. Configurez une règle pour rediriger le port 81 de l'IP publique vers `192.168.0.xx:81`.
 
 ### 5. **Test**
-À ce stade, votre application devrait être accessible depuis d'autres appareils sur le réseau local via l'adresse `192.168.0.67:81`. Si vous avez configuré la redirection de port sur votre routeur, elle sera également accessible depuis l'extérieur via votre IP publique (en vérifiant que le port est ouvert).
+À ce stade, votre application devrait être accessible depuis d'autres appareils sur le réseau local via l'adresse `192.168.0.xx:81`. Si vous avez configuré la redirection de port sur votre routeur, elle sera également accessible depuis l'extérieur via votre IP publique (en vérifiant que le port est ouvert).
 
 Assurez-vous de tester avec l'URL suivante depuis une autre machine sur le même réseau local :
 
 ```
-http://192.168.0.67:81
+http://192.168.0.xx:81
 ```
 
 Si vous souhaitez tester à distance (Internet), obtenez votre IP publique (par exemple via `whatismyip.com`) et essayez :
