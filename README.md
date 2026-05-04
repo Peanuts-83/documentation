@@ -14,6 +14,7 @@
 ### Bash Linux
 
 1. [find](./bash/find.md)
+2. [TODO list](./bash/extract-todos.sh)
 
 ### Docker
 
